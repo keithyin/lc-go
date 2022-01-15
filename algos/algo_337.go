@@ -2,13 +2,7 @@ package algos
 
 import "math"
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
-func rob(root *TreeNode, buffer map[*TreeNode]int) int {
+func robCore(root *TreeNode, buffer map[*TreeNode]int) int {
 	if root == nil {
 		return 0
 	}
@@ -19,13 +13,13 @@ func rob(root *TreeNode, buffer map[*TreeNode]int) int {
 
 	robThisVal := root.Val
 	if root.Left != nil {
-		robThisVal = robThisVal + rob(root.Left.Left, buffer) + rob(root.Left.Right, buffer)
+		robThisVal = robThisVal + robCore(root.Left.Left, buffer) + robCore(root.Left.Right, buffer)
 	}
 	if root.Right != nil {
-		robThisVal = robThisVal + rob(root.Right.Left, buffer) + rob(root.Right.Right, buffer)
+		robThisVal = robThisVal + robCore(root.Right.Left, buffer) + robCore(root.Right.Right, buffer)
 	}
 
-	result := int(math.Max(math.Max(float64(robThisVal), float64(rob(root.Left, buffer))), float64(rob(root.Right, buffer))))
+	result := int(math.Max(float64(robThisVal), float64(robCore(root.Left, buffer)+robCore(root.Right, buffer))))
 	buffer[root] = result
 
 	return result
