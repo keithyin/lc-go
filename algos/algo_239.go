@@ -34,7 +34,7 @@ func maxSlidingWindow(nums []int, k int) []int {
 		}
 
 		if (i - begin + 1) == k {
-			results = append(results, nums[i])
+			results = append(results, nums[queue.Front().Value.(int)])
 		}
 	}
 	return results
