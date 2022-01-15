@@ -1,31 +1,27 @@
 package algos
 
 func subarraySum(nums []int, k int) int {
-
-	begin := 0
-	end := 0
-
-	cumulatedVal := nums[0]
-	cnt := 0
-	for begin < len(nums) && end < len(nums) {
-
-		if begin > end {
-			cumulatedVal += nums[end]
-			end += 1
-			continue
-		}
-
-		if cumulatedVal == k {
-			cnt += 1
-			cumulatedVal -= nums[begin]
-			begin += 1
-		} else if cumulatedVal > k {
-			cumulatedVal -= nums[begin]
-			begin += 1
-		} else {
-			cumulatedVal += nums[end]
-			end += 1
-		}
+	cumSum := make([]int, len(nums)+1)
+	cumSum[0] = 0
+	for i := 1; i < len(cumSum); i++ {
+		cumSum[i] = nums[i-1] + cumSum[i-1]
 	}
+
+	buffer := make(map[int]int, 0)
+	buffer[0] = 1
+	cnt := 0
+	for i := 1; i < len(cumSum); i++ {
+		if v, ok := buffer[cumSum[i]-k]; ok {
+			cnt += v
+		}
+
+		if _, ok := buffer[cumSum[i]]; !ok {
+			buffer[cumSum[i]] = 0
+		}
+
+		buffer[cumSum[i]] += 1
+	}
+
 	return cnt
+
 }
