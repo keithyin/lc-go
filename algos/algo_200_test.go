@@ -1,6 +1,7 @@
 package algos_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/keithyin/lc-go/algos"
@@ -13,4 +14,8 @@ func TestAlgo200(t *testing.T) {
 	if val != 3 {
 		t.Errorf("expected 1, but got %d\n", val)
 	}
+}
+
+func TestBit(t *testing.T) {
+	fmt.Println(1 & 1)
 }
