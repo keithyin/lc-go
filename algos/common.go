@@ -1,6 +1,9 @@
 package algos
 
-import "container/list"
+import (
+	"container/list"
+	"math/rand"
+)
 
 type TreeNode struct {
 	Val   int
@@ -69,4 +72,14 @@ func SliceMaxInt(values []int) int {
 		}
 	}
 	return maxVal
+}
+
+func Shuffle(values []int) {
+	rand.Seed(2022)
+	for i := 1; i < len(values); i++ {
+		randomIdx := rand.Intn(i + 1)
+		tmp := values[i]
+		values[i] = values[randomIdx]
+		values[randomIdx] = tmp
+	}
 }
