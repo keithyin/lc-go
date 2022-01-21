@@ -21,3 +21,16 @@ func TestFindKthMax(t *testing.T) {
 	res := algos.FindKthLargest(nums, 2)
 	fmt.Println(res)
 }
+
+func TestInt(t *testing.T) {
+	var a int
+	a = 0xffffffff
+	fmt.Println(a)
+	a = 0x7fffffff
+	fmt.Println(a)
+}
+
+func TestAlgo98(t *testing.T) {
+	root := algos.BuildTree([]int{2, 1, 3})
+	algos.IsValidBST(root)
+}
