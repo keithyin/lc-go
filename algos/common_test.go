@@ -23,8 +23,8 @@ func TestFindKthMax(t *testing.T) {
 }
 
 func TestInt(t *testing.T) {
-	var a int
-	a = 0xffffffff
+	var a int32
+	a = -0x80000000
 	fmt.Println(a)
 	a = 0x7fffffff
 	fmt.Println(a)
