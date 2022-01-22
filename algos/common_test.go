@@ -34,3 +34,8 @@ func TestAlgo98(t *testing.T) {
 	root := algos.BuildTree([]int{2, 1, 3})
 	algos.IsValidBST(root)
 }
+
+func TestSortList(t *testing.T) {
+	root := algos.BuildList([]int{4, 2, 1, 3})
+	algos.SortList(root)
+}

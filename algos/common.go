@@ -54,6 +54,18 @@ type ListNode struct {
 	Next *ListNode
 }
 
+func BuildList(nums []int) *ListNode {
+	root := new(ListNode)
+	cursor := root
+	for i := 0; i < len(nums); i++ {
+		current := new(ListNode)
+		current.Val = nums[i]
+		cursor.Next = current
+		cursor = cursor.Next
+	}
+	return root.Next
+}
+
 func SliceMinInt(values []int) int {
 	minVal := values[0]
 	for i := 1; i < len(values); i++ {
