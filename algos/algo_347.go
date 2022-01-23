@@ -13,3 +13,26 @@ func topKFrequent(nums []int, k int) []int {
 	return []int{1}
 
 }
+
+func dict2tuple(counter map[int]int) [][]int {
+	results := make([][]int, len(counter))
+	for i := 0; i < len(results); i++ {
+		results[i] = make([]int, 2)
+	}
+
+	idx := 0
+
+	for k, v := range counter {
+		results[idx] = []int{k, v}
+	}
+	return results
+}
+
+func kthLargest(values [][]int, begin, end int) {
+
+	anchor := values[begin]
+	for begin < end {
+		for values[end][1] <             
+	}
+
+}

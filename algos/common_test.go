@@ -39,3 +39,8 @@ func TestSortList(t *testing.T) {
 	root := algos.BuildList([]int{4, 2, 1, 3})
 	algos.SortList(root)
 }
+
+func TestCanPartition(t *testing.T) {
+	nums := []int{1, 2, 5}
+	fmt.Println(algos.CanPartition(nums))
+}
