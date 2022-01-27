@@ -39,3 +39,18 @@ func TestSortList(t *testing.T) {
 	root := algos.BuildList([]int{4, 2, 1, 3})
 	algos.SortList(root)
 }
+
+func TestAlgo96(t *testing.T) {
+	res := algos.NumTrees(3)
+	fmt.Println(res)
+}
+
+func TestAlgo84(t *testing.T) {
+	res := algos.LargestRectangleArea([]int{1, 1})
+	fmt.Println(res)
+}
+
+func TestAlgo76(t *testing.T) {
+	res := algos.MinCoveredString("ADOBECODEBANC", "ABC")
+	fmt.Println(res)
+}

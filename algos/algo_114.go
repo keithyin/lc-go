@@ -11,18 +11,25 @@ func flatten(root *TreeNode) {
 }
 
 func flattenCore(root *TreeNode) *TreeNode {
-	if root == nil {
-		return nil
+	fakeRoot := new(TreeNode)
+	cursor := fakeRoot
+	stack := make([]*TreeNode, 0)
+	stack = append(stack, root)
+	for len(stack) > 0 {
+		top := stack[len(stack)-1]
+
+		stack = stack[:len(stack)-1]
+
+		if top.Right != nil {
+			stack = append(stack, top.Right)
+		}
+		if top.Left != nil {
+			stack = append(stack, top.Left)
+		}
+		cursor.Right = top
+		top.Left = nil
+		cursor = cursor.Right
 	}
 
-	leftNode := root.Left
-	rightNode := root.Right
-
-	root.Left = nil
-	root.Right = leftNode
-
-	flattenCore(leftNode)
-	flattenCore(rightNode)
-
-	return root
+	return fakeRoot.Right
 }
