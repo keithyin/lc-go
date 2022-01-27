@@ -54,3 +54,8 @@ func TestAlgo76(t *testing.T) {
 	res := algos.MinCoveredString("ADOBECODEBANC", "ABC")
 	fmt.Println(res)
 }
+
+func TestCanPartition(t *testing.T) {
+	nums := []int{1, 2, 5}
+	fmt.Println(algos.CanPartition(nums))
+}
