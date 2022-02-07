@@ -34,7 +34,7 @@ func minCoveredString(s string, t string) string {
 
 		}
 	}
-	if result_begin == -1 || result_begin == -1 {
+	if result_begin == -1 || result_end == -1 {
 		return ""
 	}
 	return s[result_begin:(result_end + 1)]

@@ -59,3 +59,24 @@ func TestCanPartition(t *testing.T) {
 	nums := []int{1, 2, 5}
 	fmt.Println(algos.CanPartition(nums))
 }
+
+func TestAlgo347(t *testing.T) {
+	vals := []int{4, 1, -1, 2, -1, 2, 3}
+	topK := 2
+	fmt.Println(algos.TopKFrequent(vals, topK))
+}
+
+func TestAlgo394(t *testing.T) {
+	s := "3[a]2[bc]"
+	fmt.Printf("result: [%s]", algos.DecodeString(s))
+}
+
+func TestAlgo207(t *testing.T) {
+	pre := [][]int{{1, 0}, {0, 1}}
+	fmt.Println(algos.CanFinish(2, pre))
+}
+
+func TestAlgo139(t *testing.T) {
+
+	fmt.Println(algos.WordBreak("leetcode", []string{"leet", "code"}))
+}
