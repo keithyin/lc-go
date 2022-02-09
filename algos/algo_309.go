@@ -7,12 +7,12 @@ package algos
 
 type State struct {
 	state int // 0: empty, 1: 有股票在手，2：:处于冷冻期
-	val   int
 }
 
 func maxProfit309(prices []int) int {
-	state := State{state: 0, val: 0}
-	return maxProfit309Core(prices, 0, &state)
+	state := State{state: 0}
+	cache := make(map[[2]int]int)
+	return maxProfit309Core2(prices, 0, &state, cache)
 }
 
 func maxProfit309Core(prices []int, cur_pos int, state *State) int {
@@ -21,7 +21,6 @@ func maxProfit309Core(prices []int, cur_pos int, state *State) int {
 	}
 	if state.state == 0 { // 没有股票在手
 		state.state = 1
-		state.val = prices[cur_pos]
 		current_buy := maxProfit309Core(prices, cur_pos+1, state) - prices[cur_pos]
 		state.state = 0
 		current_not_buy := maxProfit309Core(prices, cur_pos+1, state)
@@ -38,4 +37,38 @@ func maxProfit309Core(prices []int, cur_pos int, state *State) int {
 		state.state = 2
 		return val
 	}
+}
+
+func maxProfit309Core2(prices []int, cur_pos int, state *State, cache map[[2]int]int) int {
+	if cur_pos >= len(prices) {
+		return 0
+	}
+
+	if _, ok := cache[[2]int{state.state, cur_pos}]; ok {
+		return cache[[2]int{state.state, cur_pos}]
+	}
+
+	val := -1
+
+	if state.state == 0 { // 没有股票在手
+		state.state = 1
+		current_buy := maxProfit309Core2(prices, cur_pos+1, state, cache) - prices[cur_pos]
+		state.state = 0
+		current_not_buy := maxProfit309Core2(prices, cur_pos+1, state, cache)
+		val = SliceMaxInt([]int{current_buy, current_not_buy})
+	} else if state.state == 1 { // 有股票在手
+		state.state = 2
+		current_sold := maxProfit309Core2(prices, cur_pos+1, state, cache) + prices[cur_pos]
+		state.state = 1
+		current_not_sold := maxProfit309Core2(prices, cur_pos+1, state, cache)
+		val = SliceMaxInt([]int{current_sold, current_not_sold})
+	} else { // 当前处于冷冻期
+		state.state = 0
+		val = maxProfit309Core2(prices, cur_pos+1, state, cache)
+		state.state = 2
+	}
+
+	cache[[2]int{state.state, cur_pos}] = val
+	return val
+
 }
