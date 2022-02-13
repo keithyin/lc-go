@@ -17,7 +17,7 @@ func CanFinish(numCourses int, prerequisites [][]int) bool {
 	return canFinish(numCourses, prerequisites)
 }
 
-func canFinish(numCourses int, prerequisites [][]int) bool {
+func buildAg(numCourses int, prerequisites [][]int) map[int]*GraphNode {
 	allNodes := make(map[int]*GraphNode)
 	for _, item := range prerequisites {
 		curCourse := item[0]
@@ -39,6 +39,11 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 		}
 		dependenceCourseNode.addChild(curCourseNode)
 	}
+	return allNodes
+}
+
+func canFinish(numCourses int, prerequisites [][]int) bool {
+	allNodes := buildAg(numCourses, prerequisites)
 	cache := make(map[*GraphNode]bool)
 	for _, node := range allNodes {
 		visitMap := make(map[*GraphNode]bool)
@@ -71,4 +76,39 @@ func isDag(root *GraphNode, visitMap map[*GraphNode]bool, cache map[*GraphNode]b
 
 	}
 	return true
+}
+
+func canFinishV2(numCourses int, prerequisites [][]int) bool {
+	allNodes := buildAg(numCourses, prerequisites)
+	marked := make(map[*GraphNode]struct{})
+	onStack := make(map[*GraphNode]bool)
+	for _, node := range allNodes {
+		if _, ok := marked[node]; !ok {
+			res := agHasCycleCore(node, marked, onStack)
+			if res {
+				return res
+			}
+		}
+	}
+	return false
+}
+
+func agHasCycleCore(root *GraphNode, marked map[*GraphNode]struct{}, onStack map[*GraphNode]bool) bool {
+	marked[root] = struct{}{}
+	onStack[root] = true
+
+	for _, node := range root.childs {
+		if on, exist := onStack[node]; exist && on {
+			return true
+		}
+		if _, ok := marked[node]; !ok {
+			res := agHasCycleCore(node, marked, onStack)
+			if res {
+				return res
+			}
+		}
+	}
+
+	onStack[root] = false
+	return false
 }
